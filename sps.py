@@ -8,10 +8,13 @@ def filter_measurements(profile, is_startup_test=False):
   in_measurement = is_startup_test
   for sample in samples:
     if "marker" in sample:
-      if startMeasurementMarker in sample["marker"]:
-        in_measurement = True
-      if stopMeasurementMarker in sample["marker"]:
-        in_measurement = False
+      for aMarker in sample['marker']:
+        if aMarker['name'] == startMeasurementMarker:
+          in_measurement = True
+          break
+        if aMarker['name'] == stopMeasurementMarker:
+          in_measurement = False
+          break
       del sample["marker"]
     if in_measurement:
       measured_samples.append(sample)
