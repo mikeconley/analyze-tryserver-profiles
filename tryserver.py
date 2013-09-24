@@ -27,11 +27,13 @@ class TryserverPush:
     "win7": {
       "tpaint": 'Windows 7 32-bit try talos other',
       "ts_paint": 'Windows 7 32-bit try talos other',
+      "tart": 'Windows 7 32-bit try talos svgr',
       "build": "WINNT 5.2 try build"
     },
     "winxp": {
       "tpaint": 'Windows XP 32-bit try talos other',
       "ts_paint": 'Windows XP 32-bit try talos other',
+      "tart": 'Windows XP 32-bit try talos svgr',
       "build": "WINNT 5.2 try build"
     }
   }

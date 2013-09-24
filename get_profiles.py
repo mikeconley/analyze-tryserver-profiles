@@ -43,7 +43,7 @@ parser.add_argument("-f", "--file", nargs="*", help="locally-saved log file")
 parser.add_argument("-o", "--out", help="output filename")
 parser.add_argument("-r", "--rev", nargs="+", help="tryserver revisions")
 parser.add_argument("-p", "--platform", choices=["snowleopard", "lion", "mountainlion", "winxp", "win7"], help="tryserver Talos platform")
-parser.add_argument("-t", "--test", choices=["tpaint", "ts_paint"], help="name of the test")
+parser.add_argument("-t", "--test", choices=["tpaint", "ts_paint", "tart"], help="name of the test")
 parser.add_argument("-rp", "--reflow-profile", help="specify to extract reflow profiles instead of SPS profiles", action="store_true")
 parser.add_argument("-m", "--max", type=int, default=1000, help="maximum number of profiles")
 
