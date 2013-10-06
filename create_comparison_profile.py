@@ -62,6 +62,8 @@ if __name__ == '__main__':
   for profile in profiles_before:
     weight_profile(profile, -1)
   LogMessage('Merging profiles...')
+
+  LogMessage('Profiles after samples: ' + str(len(profiles_after[0]["threads"][0]["samples"])))
   profile = sps.merge_profiles(profiles_before + profiles_after)
   fixup_sample_data(profile)
   LogMessage('Compressing result profile...')

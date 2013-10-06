@@ -10,16 +10,19 @@ from logging import LogTrace, LogError, LogMessage, SetTracingEnabled
 class TryserverPush:
   buildernames = {
     "snowleopard": {
+      "tart": "Rev4 MacOSX Snow Leopard 10.6 try talos svgr",
       "tpaint": "Rev4 MacOSX Snow Leopard 10.6 try talos other",
       "ts_paint": "Rev4 MacOSX Snow Leopard 10.6 try talos other",
       "build": "OS X 10.7 try build"
     },
     "lion": {
+      "tart": "Rev4 MacOSX Lion 10.7 try talos svgr",
       "tpaint": "Rev4 MacOSX Lion 10.7 try talos other",
       "ts_paint": "Rev4 MacOSX Lion 10.7 try talos other",
       "build": "OS X 10.7 try build"
     },
     "mountainlion": {
+      "tart": "Rev5 MacOSX Mountain Lion 10.8 try talos svgr",
       "tpaint": "Rev5 MacOSX Mountain Lion 10.8 try talos other",
       "ts_paint": "Rev5 MacOSX Mountain Lion 10.8 try talos other",
       "build": "OS X 10.7 try build"
@@ -35,7 +38,12 @@ class TryserverPush:
       "ts_paint": 'Windows XP 32-bit try talos other',
       "tart": 'Windows XP 32-bit try talos svgr',
       "build": "WINNT 5.2 try build"
-    }
+    },
+    "win8": {
+      "tart": 'WINNT 6.2 try talos svgr',
+      "build": "WINNT 5.2 try build"
+    },
+
   }
 
   def __init__(self, rev):

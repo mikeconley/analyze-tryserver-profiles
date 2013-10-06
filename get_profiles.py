@@ -41,8 +41,9 @@ parser = argparse.ArgumentParser(description='Process profiles in Tinderbox Talo
 
 parser.add_argument("-f", "--file", nargs="*", help="locally-saved log file")
 parser.add_argument("-o", "--out", help="output filename")
+parser.add_argument("-ms", "--marker-suffix", help="marker suffix to filter measurements by")
 parser.add_argument("-r", "--rev", nargs="+", help="tryserver revisions")
-parser.add_argument("-p", "--platform", choices=["snowleopard", "lion", "mountainlion", "winxp", "win7"], help="tryserver Talos platform")
+parser.add_argument("-p", "--platform", choices=["snowleopard", "lion", "mountainlion", "winxp", "win7", "win8"], help="tryserver Talos platform")
 parser.add_argument("-t", "--test", choices=["tpaint", "ts_paint", "tart"], help="name of the test")
 parser.add_argument("-rp", "--reflow-profile", help="specify to extract reflow profiles instead of SPS profiles", action="store_true")
 parser.add_argument("-m", "--max", type=int, default=1000, help="maximum number of profiles")
@@ -50,6 +51,7 @@ parser.add_argument("-m", "--max", type=int, default=1000, help="maximum number 
 args = parser.parse_args()
 
 symbolicator = symbolication.ProfileSymbolicator(gSymbolicationOptions)
+suffix = args.marker_suffix
 
 if args.file:
   LogMessage("Loading profiles from files...")
@@ -74,7 +76,7 @@ if args.file:
   LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
   LogMessage("Filtering profiles...")
   for profile in profiles:
-    sps.filter_measurements(profile, is_startup_test=(args.test[0:2]=="ts"))
+    sps.filter_measurements(profile, is_startup_test=(args.test[0:2]=="ts"), marker_suffix=suffix)
   LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
   LogMessage("Merging profiles...")
   merged_profile = sps.merge_profiles(profiles)
@@ -110,7 +112,7 @@ for rev in args.rev:
   LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
   LogMessage("Filtering profiles...")
   for profile in profiles:
-    sps.filter_measurements(profile, is_startup_test=(args.test[0:2]=="ts"))
+    sps.filter_measurements(profile, is_startup_test=(args.test[0:2]=="ts"), marker_suffix=suffix)
   LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
   LogMessage("Symbolicating profiles...")
   for profile in profiles:

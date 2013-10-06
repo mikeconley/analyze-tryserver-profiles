@@ -1,18 +1,22 @@
 import json
 
-def filter_measurements(profile, is_startup_test=False):
+def filter_measurements(profile, is_startup_test=False, marker_suffix=None):
   startMeasurementMarker = "MEASUREMENT_START"
   stopMeasurementMarker = "MEASUREMENT_STOP"
+
+  if marker_suffix:
+    startMeasurementMarker = stopMeasurementMarker = marker_suffix
+
   samples = profile["threads"][0]["samples"]
   measured_samples = []
   in_measurement = is_startup_test
   for sample in samples:
     if "marker" in sample:
       for aMarker in sample['marker']:
-        if aMarker['name'] == startMeasurementMarker:
+        if startMeasurementMarker in aMarker['name'] and "start" in aMarker['name']:
           in_measurement = True
           break
-        if aMarker['name'] == stopMeasurementMarker:
+        if stopMeasurementMarker in aMarker['name'] and "done" in aMarker['name']:
           in_measurement = False
           break
       del sample["marker"]
