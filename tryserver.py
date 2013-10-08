@@ -13,18 +13,21 @@ class TryserverPush:
       "tart": "Rev4 MacOSX Snow Leopard 10.6 try talos svgr",
       "tpaint": "Rev4 MacOSX Snow Leopard 10.6 try talos other",
       "ts_paint": "Rev4 MacOSX Snow Leopard 10.6 try talos other",
+      "tart": "Rev4 MacOSX Snow Leopard 10.6 try talos svgr",
       "build": "OS X 10.7 try build"
     },
     "lion": {
       "tart": "Rev4 MacOSX Lion 10.7 try talos svgr",
       "tpaint": "Rev4 MacOSX Lion 10.7 try talos other",
       "ts_paint": "Rev4 MacOSX Lion 10.7 try talos other",
+      "tart": "Rev4 MacOSX Lion 10.7 try talos svgr",
       "build": "OS X 10.7 try build"
     },
     "mountainlion": {
       "tart": "Rev5 MacOSX Mountain Lion 10.8 try talos svgr",
       "tpaint": "Rev5 MacOSX Mountain Lion 10.8 try talos other",
       "ts_paint": "Rev5 MacOSX Mountain Lion 10.8 try talos other",
+      "tart": "Rev5 MacOSX Mountain Lion 10.8 try talos svgr",
       "build": "OS X 10.7 try build"
     },
     "win7": {
