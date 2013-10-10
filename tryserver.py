@@ -51,7 +51,7 @@ class TryserverPush:
 
   def __init__(self, rev):
     self.rev = rev
-    self.tbpl_runs = self._get_json("https://tbpl.mozilla.org/php/getRevisionBuilds.php?branch=try&rev=" + rev)
+    self.tbpl_runs = self._get_json("https://tbpl.mozilla.org/php/getRevisionBuilds.php?branch=try&rev=" + rev + "&showall=1")
 
   def get_talos_testlogs(self, platform, test):
     if not platform in self.buildernames:
