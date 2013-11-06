@@ -77,6 +77,7 @@ class TryserverPush:
     if not dir:
       return None
     symbols_zip_url = self._url_in_dir_ending_in("crashreporter-symbols.zip", dir)
+    print "Final url: %s" % symbols_zip_url
     io = urllib2.urlopen(symbols_zip_url, None, 30)
     sio = cStringIO.StringIO(io.read())
     zf = zipfile.ZipFile(sio)
@@ -116,6 +117,7 @@ class TryserverPush:
     return result
 
   def _url_in_dir_ending_in(self, postfix, dir):
+    print "Symbols URL is %s" % dir
     io = urllib2.urlopen(dir, None, 30)
     html = io.read()
     io.close()
