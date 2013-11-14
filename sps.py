@@ -13,10 +13,11 @@ def filter_measurements(profile, is_startup_test=False, marker_suffix=None):
   for sample in samples:
     if "marker" in sample:
       for aMarker in sample['marker']:
-        if startMeasurementMarker in aMarker['name']: # and "start" in aMarker['name']:
+      #aMarker = sample["marker"]
+        if startMeasurementMarker in aMarker['name']:# and "start" in aMarker['name']:
           in_measurement = True
           break
-        if stopMeasurementMarker in aMarker['name']: # and "done" in aMarker['name']:
+        if stopMeasurementMarker in aMarker['name']:# and "done" in aMarker['name']:
           in_measurement = False
           break
       del sample["marker"]
