@@ -55,7 +55,7 @@ suffix = args.marker_suffix
 
 if args.file:
   LogMessage("Loading profiles from files...")
-  profilestrings = []
+  """  profilestrings = []
   for filename in args.file:
     fin = open(filename, "r")
     log = fin.read()
@@ -72,12 +72,20 @@ if args.file:
   if not profiles:
     LogMessage("No profiles found.")
     exit()
-  LogMessage("Extracted %d profiles." % len(profiles))
-  LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
+  LogMessage("Extracted %d profiles." % len(profiles))"""
+  filename = args.file[0]
+  fh = open(filename, "r")
+  data = fh.read()
+  fh.close()
+  profiles = [json.loads(data)]
+  key = '0'
+  if args.reflow_profile:
+    key = 0
+  LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][key]["samples"]) for p in profiles))
   LogMessage("Filtering profiles...")
   for profile in profiles:
-    sps.filter_measurements(profile, is_startup_test=(args.test[0:2]=="ts"), marker_suffix=suffix)
-  LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][0]["samples"]) for p in profiles))
+    sps.filter_measurements(profile, marker_suffix=suffix, is_reflow_profile=args.reflow_profile, key=key)
+  LogMessage("Sample counts: %s" % ", ".join("%d" % len(p["threads"][key]["samples"]) for p in profiles))
   LogMessage("Merging profiles...")
   merged_profile = sps.merge_profiles(profiles)
   sps.fixup_sample_data(merged_profile)

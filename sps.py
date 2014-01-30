@@ -1,30 +1,47 @@
 import json
 
-def filter_measurements(profile, is_startup_test=False, marker_suffix=None):
+def filter_measurements(profile, is_startup_test=False, marker_suffix=None, is_reflow_profile=False, key=0):
   startMeasurementMarker = "MEASUREMENT_START"
   stopMeasurementMarker = "MEASUREMENT_STOP"
 
   if marker_suffix:
     startMeasurementMarker = stopMeasurementMarker = marker_suffix
 
-  samples = profile["threads"][0]["samples"]
-  measured_samples = []
-  in_measurement = is_startup_test
-  for sample in samples:
-    if "marker" in sample:
-      for aMarker in sample['marker']:
-      #aMarker = sample["marker"]
-        if startMeasurementMarker in aMarker['name']:# and "start" in aMarker['name']:
+  if is_reflow_profile:
+    samples = profile["threads"][key]["samples"]
+    measured_samples = []
+    in_measurement = is_startup_test
+    for sample in samples:
+      if "marker" in sample:
+        aMarker = sample["marker"]
+        if startMeasurementMarker in aMarker and "start" in aMarker:
           in_measurement = True
-          break
-        if stopMeasurementMarker in aMarker['name']:# and "done" in aMarker['name']:
+        if stopMeasurementMarker in aMarker and "end" in aMarker:
           in_measurement = False
-          break
-      del sample["marker"]
-    if in_measurement:
-      measured_samples.append(sample)
-  profile["threads"][0]["samples"] = measured_samples
-  return profile
+        del sample["marker"]
+      if in_measurement:
+        measured_samples.append(sample)
+    profile["threads"][key]["samples"] = measured_samples
+    return profile
+  else:
+    samples = profile["threads"][key]["samples"]
+    measured_samples = []
+    in_measurement = is_startup_test
+    for sample in samples:
+      info = sample['extraInfo']
+      if "marker" in info:
+        for aMarker in info['marker']:
+          if startMeasurementMarker in aMarker['name'] and "start" in aMarker['name']:
+            in_measurement = True
+            break
+          if stopMeasurementMarker in aMarker['name'] and "done" in aMarker['name']:
+            in_measurement = False
+            break
+        del info["marker"]
+      if in_measurement:
+        measured_samples.append(sample)
+    profile["threads"][key]["samples"] = measured_samples
+    return profile
 
 def merge_profiles(profiles):
   first_profile = profiles[0]

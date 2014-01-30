@@ -11,6 +11,8 @@ import gzip
 from logging import LogTrace, LogError, LogMessage, SetTracingEnabled
 import sps
 
+key = 0
+
 def read_file(filename):
   f = open(filename, "r")
   text = f.read()
@@ -22,9 +24,9 @@ def get_profiles_in_files(filenames):
 
 def fixup_sample_data(profile):
   if "profileJSON" in profile:
-    samples = profile["profileJSON"]["threads"][0]["samples"]
+    samples = profile["profileJSON"]["threads"][key]["samples"]
   else:
-    samples = profile["threads"][0]["samples"]
+    samples = profile["threads"][key]["samples"]
   for i, sample in enumerate(samples):
     sample["time"] = i
     if "responsiveness" in sample:
@@ -32,9 +34,9 @@ def fixup_sample_data(profile):
 
 def weight_profile(profile, factor):
   if "profileJSON" in profile:
-    samples = profile["profileJSON"]["threads"][0]["samples"]
+    samples = profile["profileJSON"]["threads"][key]["samples"]
   else:
-    samples = profile["threads"][0]["samples"]
+    samples = profile["threads"][key]["samples"]
   for i, sample in enumerate(samples):
     weightbefore = sample["weight"] if "weight" in sample else 1
     sample["weight"] = factor * weightbefore
@@ -63,7 +65,7 @@ if __name__ == '__main__':
     weight_profile(profile, -1)
   LogMessage('Merging profiles...')
 
-  LogMessage('Profiles after samples: ' + str(len(profiles_after[0]["threads"][0]["samples"])))
+  LogMessage('Profiles after samples: ' + str(len(profiles_after[0]["threads"][key]["samples"])))
   profile = sps.merge_profiles(profiles_before + profiles_after)
   fixup_sample_data(profile)
   LogMessage('Compressing result profile...')
