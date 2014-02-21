@@ -2,7 +2,7 @@ import sys
 import threading
 import time
 
-gEnableTracing = False
+gEnableTracing = True
 
 def SetTracingEnabled(isEnabled):
   global gEnableTracing
